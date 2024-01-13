@@ -29,17 +29,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         if let chosenIndex = cards.firstIndex(of: card) {
             if !cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched {
                 if let potentialMatchingCardIndex = indexOfSelectedCard {
-                    if cards[chosenIndex].content == cards[potentialMatchingCardIndex].content {
-                        cards[chosenIndex].isMatched = true
-                        cards[potentialMatchingCardIndex].isMatched = true
-                        score += 2 + cards[chosenIndex].bonus + cards[potentialMatchingCardIndex].bonus
-                    } else {
-                        if cards[chosenIndex].hasBeenSeen
-                        || cards[potentialMatchingCardIndex].hasBeenSeen {
-                            score -= 1
-                        }
-                    }
-                } else {
+                    checkMatch(for: chosenIndex, and: potentialMatchingCardIndex)
+                }
+                else {
                     indexOfSelectedCard = chosenIndex
                 }
                 cards[chosenIndex].isFaceUp = true
@@ -49,6 +41,19 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     mutating func shuffle() {
         cards.shuffle()
+    }
+    
+    mutating func checkMatch(for firstIndex: Int, and secondIndex: Int) {
+        if cards[firstIndex].content == cards[secondIndex].content {
+            cards[firstIndex].isMatched = true
+            cards[secondIndex].isMatched = true
+            score += 2 + cards[firstIndex].bonus + cards[secondIndex].bonus
+        }
+        else {
+            if cards[firstIndex].hasBeenSeen || cards[secondIndex].hasBeenSeen {
+                score -= 1
+            }
+        }
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
