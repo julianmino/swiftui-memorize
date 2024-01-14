@@ -43,6 +43,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         cards.shuffle()
     }
     
+    mutating func restart() {
+        score = 0
+        cards.indices.forEach { index in
+            cards[index].isFaceUp = false
+            cards[index].isMatched = false
+        }
+    }
+    
     mutating func checkMatch(for firstIndex: Int, and secondIndex: Int) {
         if cards[firstIndex].content == cards[secondIndex].content {
             cards[firstIndex].isMatched = true

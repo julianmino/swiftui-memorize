@@ -24,7 +24,11 @@ struct EmojiMemoryGameView: View {
                 Spacer()
                 deck
                 Spacer()
-                shuffle
+                if undealtCards.isEmpty {
+                    restart
+                } else {
+                    shuffle
+                }
             }
             .font(.title)
         }
@@ -106,6 +110,19 @@ struct EmojiMemoryGameView: View {
                 viewModel.shuffle()
             }
         })
+    }
+    
+    private var restart: some View {
+        Button("Restart") {
+            var delay: TimeInterval = 0
+            for card in viewModel.cards {
+                withAnimation(.easeInOut(duration: 0.5).delay(delay)) {
+                    _ = dealt.remove(card.id)
+                }
+                delay += 0.02
+            }
+            viewModel.restart()
+        }
     }
     
     @State private var lastScoreChange = (0, causedByCardId: "")

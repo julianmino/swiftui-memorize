@@ -110,10 +110,10 @@
 		36EA1F3F2AB11C800026CDE8 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				36EA1F402AB11C800026CDE8 /* MemorizeApp.swift */,
 				366580132B52F70000FFF22D /* Models */,
 				366580152B52F73E00FFF22D /* Views */,
 				366580172B52F7D700FFF22D /* ViewModels */,
-				36EA1F402AB11C800026CDE8 /* MemorizeApp.swift */,
 				36EA1F442AB11C810026CDE8 /* Assets.xcassets */,
 				36EA1F462AB11C810026CDE8 /* Preview Content */,
 			);
